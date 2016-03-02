@@ -19,6 +19,18 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/dsheader"/>
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="No file selected"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="20dp"
+        android:id="@+id/fileNameView"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,4 +40,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
         android:onClick="openFilePicker"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send File"
+        android:id="@+id/sendButton"
+        android:enabled="false"
+        android:onClick="readyToSend"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/browseButton"
+        android:layout_alignEnd="@+id/browseButton"
+        android:layout_alignLeft="@+id/browseButton"
+        android:layout_alignStart="@+id/browseButton"/>
+
 </RelativeLayout>
