@@ -8,9 +8,11 @@ import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
@@ -93,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements NfcAdapter.Create
     @Override
     public Uri[] createBeamUris(NfcEvent event) {
         file.setReadable(true, false);
-        return new Uri[]{Uri.fromFile(file)};
+        File dir= Environment.getExternalStorageDirectory();
+        File fileToSend=new File(dir, file.getName());
+        fileToSend.setReadable(true, false);
+        Log.i("\n \nURI ", Uri.fromFile(fileToSend).toString());
+        return new Uri[]{Uri.fromFile(fileToSend)};
     }
 }
