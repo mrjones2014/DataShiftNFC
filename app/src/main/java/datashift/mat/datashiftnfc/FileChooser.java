@@ -1,13 +1,18 @@
 package datashift.mat.datashiftnfc;
+
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.text.DateFormat;
+
+import android.media.audiofx.EnvironmentalReverb;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -17,7 +22,7 @@ public class FileChooser extends ListActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentDir = new File("/sdcard/");
+        currentDir = new File(Environment.getExternalStorageDirectory().getPath());
         fill(currentDir);
     }
     private void fill(File f)
@@ -56,7 +61,7 @@ public class FileChooser extends ListActivity{
             }
         }catch(Exception e)
         {
-
+            Log.i("Error:", "Error loading files");
         }
         Collections.sort(dir);
         Collections.sort(fls);
