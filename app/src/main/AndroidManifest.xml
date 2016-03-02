@@ -29,7 +29,14 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="model/*" />
+                <data android:mimeType="multipart/*" />
+                <data android:mimeType="message/*" />
+                <data android:mimeType="application/*" />
+                <data android:mimeType="audio/*" />
             </intent-filter>
         </activity>
     </application>

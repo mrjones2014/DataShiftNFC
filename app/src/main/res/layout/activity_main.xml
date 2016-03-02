@@ -1,58 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="datashift.mat.datashiftnfc.MainActivity"
-    android:background="#ff0000">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:orientation="vertical"
+              tools:context="com.example.androidnfc.MainActivity"
+              android:background="#ff0000">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/dsheader"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@+id/textout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No file selected"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="20dp"
-        android:id="@+id/fileNameView"/>
+        android:text="No File Chosen"
+        android:singleLine="false"
+        android:textSize="25dp"
+        android:textColor="#000000"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose File"
-        android:id="@+id/browseButton"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp"
-        android:onClick="openFilePicker"/>
+        android:id="@+id/chooseFileButton"
+        android:onClick="openFilePicker"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send File"
-        android:id="@+id/sendButton"
-        android:enabled="false"
-        android:onClick="readyToSend"
-        android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/browseButton"
-        android:layout_alignEnd="@+id/browseButton"
-        android:layout_alignLeft="@+id/browseButton"
-        android:layout_alignStart="@+id/browseButton"/>
-
-</RelativeLayout>
+</LinearLayout>
