@@ -27,7 +27,7 @@
         android:onClick="goToSendFileActivity"
         android:maxWidth="425px"
         android:minWidth="425px"/>
-
+<!--
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,5 +38,5 @@
         android:maxWidth="425px"
         android:minWidth="425px"
         android:onClick="goToChatActivity"/>
-
+-->
 </LinearLayout>
