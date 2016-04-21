@@ -16,4 +16,8 @@ public class MainActivity extends Activity {
     public void goToSendFileActivity(View v){
         startActivity(new Intent(MainActivity.this, SendFileActivity.class));
     }
+
+    public void goToSendFileBTActivity(View v){
+        startActivity(new Intent(MainActivity.this, SendFileBT.class));
+    }
 }
