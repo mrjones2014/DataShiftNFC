@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,20 +30,23 @@ public class SendFileBT extends Activity {
     private static final int PICKFILE_RESULT_CODE=1;
     private static final int READ_WRITE_PERMISSON_REQUEST=2;
     private static final int REQUEST_BLU = 3;
-    private static final int DISCOVER_DURATION = 300;
-    TextView textOut=(TextView)findViewById(R.id.textout);
+    private static final int BLUETOOTH_PERMISSION = 4;
+    private static final int DISCOVER_DURATION = 120;
+    TextView textOut;
+    Button sendButton;
     private File file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_file_bt);
+        textOut=(TextView)findViewById(R.id.textout);
+        sendButton=(Button)findViewById(R.id.sendButton);
+        sendButton.setVisibility(View.INVISIBLE);
         file=null;
         BluetoothAdapter btAdapter=BluetoothAdapter.getDefaultAdapter();
         if(btAdapter==null) {
             Toast.makeText(SendFileBT.this, "No Bluetooth adapter on device.", Toast.LENGTH_LONG).show();
-        }else if(ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH)==PackageManager.PERMISSION_DENIED){
-            enableBluetooth();
         }
     }
 
@@ -50,10 +54,13 @@ public class SendFileBT extends Activity {
         if(file==null){
             Toast.makeText(this, "No file chosen.", Toast.LENGTH_SHORT).show();
         } else{
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH)==PackageManager.PERMISSION_DENIED){
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH}, BLUETOOTH_PERMISSION);
+            }
             Intent intent=new Intent();
             intent.setAction(Intent.ACTION_SEND);
             intent.setType(URLConnection.guessContentTypeFromName(file.getName()));
-            intent.putExtra(Intent.EXTRA_STREAM, getPath(this.getApplicationContext(), Uri.fromFile(file)));
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
             PackageManager pm=getPackageManager();
             List<ResolveInfo> appsList=pm.queryIntentActivities(intent, 0);
             if(appsList.size()>0){
@@ -78,27 +85,34 @@ public class SendFileBT extends Activity {
         }
     }
 
-    public void enableBluetooth(){
-        Intent discoveryIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVER_DURATION );
-        startActivityForResult(discoveryIntent, REQUEST_BLU);
-    }
+//    public void enableBluetooth(){
+//        Intent discoveryIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+//        discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVER_DURATION );
+//        startActivityForResult(discoveryIntent, REQUEST_BLU);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
+                    sendButton.setVisibility(View.VISIBLE);
                     Uri _uri = data.getData();
                     String FilePath=getPath(this.getApplicationContext(), _uri);
                     textOut.setText(FilePath);
                     file = new File(FilePath);
                 }
                 break;
-            case REQUEST_BLU:
-                if(resultCode == DISCOVER_DURATION){
-
+//            case REQUEST_BLU:
+//                if(resultCode == DISCOVER_DURATION){
+//
+//                }
+//                break;
+            case BLUETOOTH_PERMISSION:
+                if(resultCode!=RESULT_OK){
+                    Toast.makeText(this, "You must enable Bluetooth for Bluetooth file transfer", Toast.LENGTH_SHORT);
                 }
+                break;
         }
     }
 

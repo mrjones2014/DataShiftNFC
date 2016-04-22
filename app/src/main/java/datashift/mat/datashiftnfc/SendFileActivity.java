@@ -51,7 +51,6 @@ public class SendFileActivity extends AppCompatActivity implements NfcAdapter.Cr
             Toast.makeText(SendFileActivity.this, "nfcAdapter==null, no NFC adapter exists", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(SendFileActivity.this, "Set Callback(s)", Toast.LENGTH_SHORT).show();
             nfcAdapter.setBeamPushUrisCallback(this, this);
         }
     }
@@ -75,6 +74,8 @@ public class SendFileActivity extends AppCompatActivity implements NfcAdapter.Cr
         switch(requestCode) {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
+                    TextView readyMessage=(TextView)findViewById(R.id.readyMessage);
+                    readyMessage.setText("\n \nTouch devices back to back to send file.");
                     Uri _uri = data.getData();
                     String FilePath=getPath(this.getApplicationContext(), _uri);
                     textOut.setText(FilePath);
